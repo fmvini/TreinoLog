@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Banco de dados SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# VS Code
+.vscode/
+
+# Ambiente e configurações locais
+.env
+.env.*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Documentação ignorada
+docs/
+
+# Arquivos temporários
+*.log
+*.tmp
