@@ -39,8 +39,8 @@ def ler_data(mensagem: str) -> str:
 def confirmar(mensagem: str) -> bool:
     while True:
         resposta = input(mensagem).strip().lower()
-        if mensagem == 's':
+        if resposta == "s":
             return True
-        if mensagem == 'n':
+        if resposta == "n":
             return False
         print("Opção inválida, escolha entre S/N.")

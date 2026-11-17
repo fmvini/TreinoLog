@@ -3,7 +3,7 @@ from menus.menu_grupos import MenuGrupos
 from menus.menu_exercicios import MenuExercicios
 from menus.menu_treinos import MenuTreinos
 from menus.menu_series import MenuSeries
-
+from utils.entrada import ler_inteiro
 class MenuPrincipal:
     def __init__(
         self,
@@ -35,11 +35,7 @@ class MenuPrincipal:
     def executar(self) -> None:
         while True:
             self.exibir()
-            try:
-                escolha = int(input("Digite sua escolha: "))
-            except ValueError:
-                print("Valor inválido, digite um valor inteiro.")
-                continue
+            escolha = ler_inteiro("Digite sua escolha: ")
             match escolha:
                 case 1:
                     self.menu_grupos.executar()                    

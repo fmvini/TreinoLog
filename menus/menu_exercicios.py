@@ -1,7 +1,7 @@
 from utils.formatacao import titulo, barra, tabela
 from models.exercicio import Exercicio
 from exceptions import RegistroNaoEncontradoError
-
+from utils.entrada import ler_inteiro
 
 class MenuExercicios:
     def __init__(self, exercicio_service, grupo_service):
@@ -147,11 +147,7 @@ class MenuExercicios:
         while True:
             self.exibir()
 
-            try:
-                escolha = int(input("Digite a sua escolha: "))
-            except ValueError:
-                print("Valor inválido digitado, tente novamente.")
-                continue
+            escolha = ler_inteiro("Digite sua escolha: ")
 
             match escolha:
                 case 1:

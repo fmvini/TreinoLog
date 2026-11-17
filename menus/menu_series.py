@@ -1,7 +1,7 @@
 from utils.formatacao import titulo, barra, tabela
 from models.serie import Serie
 from exceptions import RegistroNaoEncontradoError
-
+from utils.entrada import ler_inteiro
 
 class MenuSeries:
 
@@ -219,11 +219,7 @@ class MenuSeries:
         while True:
             self.exibir()
 
-            try:
-                escolha = int(input("Digite sua escolha: "))
-            except ValueError:
-                print("Valor inválido digitado, tente novamente.")
-                continue
+            escolha = ler_inteiro("Digite sua escolha: ")
 
             match escolha:
                 case 1:

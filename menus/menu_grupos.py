@@ -2,7 +2,7 @@ from utils.formatacao import titulo, barra, tabela
 import sqlite3
 from models.grupo_muscular import GrupoMuscular
 from exceptions import RegistroNaoEncontradoError
-
+from utils.entrada import ler_inteiro
 class MenuGrupos:
 
     def __init__(self, grupo_service):
@@ -99,11 +99,7 @@ class MenuGrupos:
     def executar(self):
         while True:
             self.exibir()
-            try: 
-                escolha = int(input("Digite a sua escolha: "))
-            except ValueError:
-                print("Valor inválido digitado, tente novamente.")
-                continue
+            escolha = ler_inteiro("Digite sua escolha: ")
             match escolha:
                 case 1: 
                     self.cadastrar()
