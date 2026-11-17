@@ -1,3 +1,5 @@
+from datetime import datetime, date
+
 def ler_inteiro(mensagem: str) -> int:
     while True:
         valor = input(mensagem)
@@ -24,3 +26,21 @@ def ler_texto(mensagem: str) -> str:
             print("Entrada inválida! O texto não pode ser vazio.")
         else:
             return msg
+
+def ler_data(mensagem: str) -> str:
+    while True:
+        valor = input(mensagem)
+        try:
+            datetime.strptime(valor, '%d/%m/%Y')
+            return valor
+        except ValueError:
+            print("Entrada inválida! Digite uma data no formato 'dd/mm/aaaa'.")
+
+def confirmar(mensagem: str) -> bool:
+    while True:
+        resposta = input(mensagem).strip().lower()
+        if mensagem == 's':
+            return True
+        if mensagem == 'n':
+            return False
+        print("Opção inválida, escolha entre S/N.")
