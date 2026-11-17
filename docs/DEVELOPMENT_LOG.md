@@ -1,3 +1,23 @@
+## 2026-11-17 — Documentação de uso do TreinoLog
+
+### Implementado
+- Criado o README com requisitos, instalação, execução, fluxo de uso, estrutura do projeto e modelo de dados.
+- Documentadas as dependências: nenhuma biblioteca externa para executar a aplicação; `pytest` é usado somente para os testes.
+
+### Arquivos principais alterados
+- `README.md`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Decisões técnicas
+- O README exige Python 3.10 ou superior por causa da sintaxe de tipos e dos menus `match/case` usados pelo projeto.
+
+### Estado atual
+- A documentação de uso está disponível na raiz do repositório.
+- Esta alteração é apenas documental; os testes não foram executados nesta etapa.
+
+### Próximos passos
+- Executar `python main.py` na pasta do projeto para iniciar a aplicação.
+
 ## 2026-11-17 — Validação de grupos e entradas numéricas
 
 ### Implementado
