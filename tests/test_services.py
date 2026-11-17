@@ -16,6 +16,7 @@ from services.grupo_muscular_service import GrupoMuscularService
 from services.exercicio_service import ExercicioService
 from services.treino_service import TreinoService
 from services.serie_service import SerieService
+from menus.menu_exercicios import MenuExercicios
 
 
 @pytest.fixture
@@ -94,3 +95,25 @@ def test_crud_completo_dos_quatro_services(sistema):
         grupo_service.repository.buscar_por_id(grupo.id)
     with pytest.raises(RegistroNaoEncontradoError):
         treino_service.repository.buscar_por_id(treino.id)
+
+
+def test_excluir_exercicio_com_serie_exibe_erro_e_preserva_registros(
+    sistema,
+    monkeypatch,
+    capsys
+):
+    grupo = sistema["grupo"].criar(GrupoMuscular("Peito"))
+    exercicio = sistema["exercicio"].criar(Exercicio("Supino reto", grupo.id))
+    treino = sistema["treino"].criar(
+        Treino("Treino A", date.today().isoformat(), 60)
+    )
+    serie = sistema["serie"].criar(Serie(treino.id, exercicio.id, 1, 10, 40))
+    respostas = iter([str(exercicio.id), "s"])
+    monkeypatch.setattr("builtins.input", lambda _: next(respostas))
+
+    menu = MenuExercicios(sistema["exercicio"], sistema["grupo"])
+    menu.deletar()
+
+    assert "associado a uma ou mais séries" in capsys.readouterr().out
+    assert sistema["exercicio"].buscar_por_id(exercicio.id).id == exercicio.id
+    assert sistema["serie"].buscar_por_id(serie.id).id == serie.id

@@ -1,6 +1,6 @@
 from utils.formatacao import titulo, barra, tabela
 from models.exercicio import Exercicio
-from exceptions import RegistroNaoEncontradoError
+from exceptions import RegistroNaoEncontradoError, RegraDeNegocioError
 from utils.entrada import ler_inteiro
 
 class MenuExercicios:
@@ -128,6 +128,8 @@ class MenuExercicios:
             print(f"Tipo de dado inválido: {erro}")
         except RegistroNaoEncontradoError as erro:
             print(erro)
+        except RegraDeNegocioError as erro:
+            print(f"Não foi possível excluir o exercício: {erro}")
         else:
             print("Exercício excluído com sucesso!")
 

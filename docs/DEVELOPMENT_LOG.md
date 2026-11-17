@@ -1,3 +1,26 @@
+## 2026-11-17 — Tratamento de exclusão de exercícios vinculados
+
+### Implementado
+- A exclusão de exercício referenciado por séries agora exibe uma mensagem clara em vez de encerrar o programa com `sqlite3.IntegrityError`.
+- A operação faz rollback da transação rejeitada e preserva o exercício e suas séries.
+- Adicionado teste para o fluxo de exclusão pelo menu.
+
+### Arquivos principais alterados
+- `repositories/exercicio_repository.py`
+- `menus/menu_exercicios.py`
+- `tests/test_services.py`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Decisões técnicas
+- A integridade referencial continua sendo aplicada pelo SQLite; o repositório converte a violação esperada em `RegraDeNegocioError` para o menu apresentar ao usuário.
+
+### Estado atual
+- O erro de exclusão é tratado sem apagar dados vinculados.
+- Os 42 testes automatizados passaram, incluindo o novo caso pelo menu.
+
+### Próximos passos
+- Continuar o uso normal; exercícios com séries vinculadas devem ser removidos somente depois das séries.
+
 ## 2026-11-17 — Dados de demonstração e dependência de testes
 
 ### Implementado
