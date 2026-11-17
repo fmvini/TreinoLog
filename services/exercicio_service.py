@@ -39,3 +39,9 @@ class ExercicioService:
         if not self.repository.buscar_por_id(id):
             raise ValueError("O exercício informado não foi encontrado.")
         self.repository.deletar(id)
+
+    def listar(self) -> list[Exercicio]:
+        return self.repository.listar_todos()
+    
+    def buscar_por_id(self, id: int) -> Exercicio:
+        return self.repository.buscar_por_id(id)

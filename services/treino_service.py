@@ -38,3 +38,9 @@ class TreinoService:
         if not self.repository.buscar_por_id(id):
             raise ValueError("O treino de id informado não existe no banco.")
         self.repository.deletar(id)
+        
+    def listar(self) -> list[Treino]:
+        return self.repository.listar_todos()
+
+    def buscar_por_id(self, id: int) -> Treino:
+        return self.repository.buscar_por_id(id)

@@ -25,3 +25,8 @@ class GrupoMuscularService:
         if not self.repository.buscar_por_id(id):
             raise ValueError("O ID do grupo não foi encontrado no banco.")
         self.repository.deletar(id)
+
+    def listar(self) -> list[GrupoMuscular]:
+        return self.repository.listar_todos()
+    def buscar_por_id(self, id: int) -> GrupoMuscular:
+        return self.repository.buscar_por_id(id)

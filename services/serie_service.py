@@ -72,3 +72,9 @@ class SerieService:
         if not self.serie_repository.buscar_por_id(id):
             raise ValueError("O ID informado não foi encontrado no banco de dados.")
         self.serie_repository.deletar(id)
+
+    def listar(self) -> list[Serie]:
+        return self.serie_repository.listar_todos()
+
+    def buscar_por_id(self, id: int) -> Serie:
+        return self.serie_repository.buscar_por_id(id)
