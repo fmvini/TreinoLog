@@ -14,8 +14,8 @@ class MenuGrupos:
         grupo = GrupoMuscular(nome, descricao)
         try:
             self.grupo_service.criar(grupo)
-        except ValueError:
-            print("Houve um erro na criação do grupo, tente novamente.")
+        except ValueError as erro:
+            print(f"Não foi possível criar o grupo: {erro}")
         except sqlite3.IntegrityError:
             print("Já existe um grupo muscular com esse nome.")
         else: 
@@ -38,7 +38,7 @@ class MenuGrupos:
 
     def buscar(self) -> None:
         try:
-            id = int(input("Digite o ID do grupo muscular: "))
+            id = ler_inteiro("Digite o ID do grupo muscular: ")
             grupo = self.grupo_service.buscar_por_id(id)
         except ValueError as erro:  
             print(f"Entrada inválida: {erro}")
@@ -52,7 +52,7 @@ class MenuGrupos:
 
     def atualizar(self) -> None:
         try:
-            id = int(input("Digite o ID do grupo que deseja atualizar: "))
+            id = ler_inteiro("Digite o ID do grupo que deseja atualizar: ")
             grupo = self.grupo_service.buscar_por_id(id)
             print(f"\nGrupo selecionado: {grupo.nome}")
             nome = input("Digite o novo nome: ")
@@ -69,7 +69,7 @@ class MenuGrupos:
 
     def deletar(self) -> None:
         try:
-            id = int(input("Digite o ID do grupo que deseja excluir: "))
+            id = ler_inteiro("Digite o ID do grupo que deseja excluir: ")
             grupo = self.grupo_service.buscar_por_id(id)
             print(f"\nGrupo selecionado: {grupo.nome}")
             confirmacao = input("Tem certeza que deseja excluir? (s/n): ").strip().lower()

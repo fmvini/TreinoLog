@@ -14,7 +14,7 @@ class MenuTreinos:
         try:
             nome = input("Digite o nome do treino: ")
             data = input("Digite a data do treino (AAAA-MM-DD): ")
-            duracao_min = int(input("Digite a duração em minutos: "))
+            duracao_min = ler_inteiro("Digite a duração em minutos: ")
             observacoes = input("Digite as observações (opcional): ")
             treino = Treino(
                 nome=nome,
@@ -49,7 +49,7 @@ class MenuTreinos:
 
     def buscar(self) -> None:
         try:
-            id = int(input("Digite o ID do treino: "))
+            id = ler_inteiro("Digite o ID do treino: ")
             treino = self.treino_service.buscar_por_id(id)
         except ValueError as erro:
             print(f"Entrada inválida: {erro}")
@@ -69,12 +69,12 @@ class MenuTreinos:
 
     def atualizar(self) -> None:
         try:
-            id = int(input("Digite o ID do treino que deseja atualizar: "))
+            id = ler_inteiro("Digite o ID do treino que deseja atualizar: ")
             treino = self.treino_service.buscar_por_id(id)
             print(f"\nTreino selecionado: {treino.nome}")
             nome = input("Digite o novo nome: ")
             data = input("Digite a nova data (AAAA-MM-DD): ")
-            duracao_min = int(input("Digite a nova duração em minutos: "))
+            duracao_min = ler_inteiro("Digite a nova duração em minutos: ")
             observacoes = input("Digite as novas observações (opcional): ")
             treino.nome = nome
             treino.data = data
@@ -91,7 +91,7 @@ class MenuTreinos:
             print("Treino atualizado com sucesso!")
     def deletar(self) -> None:
         try:
-            id = int(input("Digite o ID do treino que deseja excluir: "))
+            id = ler_inteiro("Digite o ID do treino que deseja excluir: ")
             treino = self.treino_service.buscar_por_id(id)
             print(f"\nTreino selecionado: {treino.nome}")
             print(f"Data: {treino.data_br}")

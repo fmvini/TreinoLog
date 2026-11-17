@@ -45,10 +45,10 @@ class MenuSeries:
             ])
         print(tabela(cabecalhos, linhas))
         try:
-            treino_id = int(input("\nDigite o ID do treino: "))
-            exercicio_id = int(input("Digite o ID do exercício: "))
-            numero_serie = int(input("Digite o número da série: "))
-            repeticoes = int(input("Digite a quantidade de repetições: "))
+            treino_id = ler_inteiro("\nDigite o ID do treino: ")
+            exercicio_id = ler_inteiro("Digite o ID do exercício: ")
+            numero_serie = ler_inteiro("Digite o número da série: ")
+            repeticoes = ler_inteiro("Digite a quantidade de repetições: ")
             carga_kg = float(input("Digite a carga utilizada (kg): "))
             serie = Serie(
                 treino_id=treino_id,
@@ -98,7 +98,7 @@ class MenuSeries:
 
     def buscar(self) -> None:
         try:
-            id = int(input("Digite o ID da série: "))
+            id = ler_inteiro("Digite o ID da série: ")
             serie = self.serie_service.buscar_por_id(id)
         except ValueError as erro:
             print(f"Entrada inválida: {erro}")
@@ -130,7 +130,7 @@ class MenuSeries:
 
     def atualizar(self) -> None:
         try:
-            id = int(input("Digite o ID da série que deseja atualizar: "))
+            id = ler_inteiro("Digite o ID da série que deseja atualizar: ")
             serie = self.serie_service.buscar_por_id(id)
             print(f"\nSérie selecionada: {serie}")
             print(f"Treino atual: {serie.treino_id}")
@@ -162,10 +162,10 @@ class MenuSeries:
                     exercicio.grupo_nome or "-"
                 ])
             print(tabela(cabecalhos, linhas))
-            treino_id = int(input("\nDigite o novo ID do treino: "))
-            exercicio_id = int(input("Digite o novo ID do exercício: "))
-            numero_serie = int(input("Digite o novo número da série: "))
-            repeticoes = int(input("Digite a nova quantidade de repetições: "))
+            treino_id = ler_inteiro("\nDigite o novo ID do treino: ")
+            exercicio_id = ler_inteiro("Digite o novo ID do exercício: ")
+            numero_serie = ler_inteiro("Digite o novo número da série: ")
+            repeticoes = ler_inteiro("Digite a nova quantidade de repetições: ")
             carga_kg = float(input("Digite a nova carga (kg): "))
             serie.treino_id = treino_id
             serie.exercicio_id = exercicio_id
@@ -184,7 +184,7 @@ class MenuSeries:
 
     def deletar(self) -> None:
         try:
-            id = int(input("Digite o ID da série que deseja excluir: "))
+            id = ler_inteiro("Digite o ID da série que deseja excluir: ")
             serie = self.serie_service.buscar_por_id(id)
             print(f"\nSérie selecionada: {serie}")
             confirmacao = input(

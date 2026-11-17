@@ -8,6 +8,11 @@ class GrupoMuscularService:
     def criar(self, grupo: GrupoMuscular) -> GrupoMuscular:
         if not grupo.nome.strip():
             raise ValueError("O nome do grupo não pode ser vazio")
+        if any(
+            existente.nome == grupo.nome
+            for existente in self.repository.listar_todos()
+        ):
+            raise ValueError("Já existe um grupo muscular com esse nome.")
         return self.repository.criar(grupo)
 
     def atualizar(self, grupo: GrupoMuscular) -> GrupoMuscular:
@@ -17,6 +22,11 @@ class GrupoMuscularService:
             raise ValueError("O grupo precisa de um ID.")
         if not self.repository.buscar_por_id(grupo.id):
             raise ValueError("O ID do grupo não foi encontrado no banco.")
+        if any(
+            existente.id != grupo.id and existente.nome == grupo.nome
+            for existente in self.repository.listar_todos()
+        ):
+            raise ValueError("Já existe outro grupo muscular com esse nome.")
         return self.repository.atualizar(grupo)
 
     def deletar(self, id: int) -> None:

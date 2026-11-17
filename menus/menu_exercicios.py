@@ -26,7 +26,7 @@ class MenuExercicios:
         print(tabela(cabecalhos, linhas))
         try:
             nome = input("\nDigite o nome do exercício: ")
-            grupo_id = int(input("Digite o ID do grupo muscular: "))
+            grupo_id = ler_inteiro("Digite o ID do grupo muscular: ")
             equipamento = input("Digite o equipamento (opcional): ")
             exercicio = Exercicio(
                 nome=nome,
@@ -61,7 +61,7 @@ class MenuExercicios:
 
     def buscar(self) -> None:
         try:
-            id = int(input("Digite o ID do exercício: "))
+            id = ler_inteiro("Digite o ID do exercício: ")
             exercicio = self.exercicio_service.buscar_por_id(id)
         except ValueError as erro:
             print(f"Entrada inválida: {erro}")
@@ -80,7 +80,7 @@ class MenuExercicios:
 
     def atualizar(self) -> None:
         try:
-            id = int(input("Digite o ID do exercício que deseja atualizar: "))
+            id = ler_inteiro("Digite o ID do exercício que deseja atualizar: ")
             exercicio = self.exercicio_service.buscar_por_id(id)
             print(f"\nExercício selecionado: {exercicio.nome}")
             grupos = self.grupo_service.listar()
@@ -94,7 +94,7 @@ class MenuExercicios:
                 linhas.append([str(grupo.id), grupo.nome])
             print(tabela(cabecalhos, linhas))
             nome = input("\nDigite o novo nome: ")
-            grupo_id = int(input("Digite o novo ID do grupo muscular: "))
+            grupo_id = ler_inteiro("Digite o novo ID do grupo muscular: ")
             equipamento = input("Digite o novo equipamento (opcional): ")
             exercicio.nome = nome
             exercicio.grupo_id = grupo_id
@@ -111,7 +111,7 @@ class MenuExercicios:
 
     def deletar(self) -> None:
         try:
-            id = int(input("Digite o ID do exercício que deseja excluir: "))
+            id = ler_inteiro("Digite o ID do exercício que deseja excluir: ")
             exercicio = self.exercicio_service.buscar_por_id(id)
             print(f"\nExercício selecionado: {exercicio.nome}")
             print(f"Grupo muscular: {exercicio.grupo_nome or '-'}")
