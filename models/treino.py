@@ -41,3 +41,8 @@ class Treino:
             raise ValueError("A data do treino não pode ser futura.")
         
         self._data = valor
+
+    @property
+    def data_br(self) -> str:
+        data = datetime.strptime(self.data, "%Y-%m-%d")
+        return data.strftime("%d/%m/%Y")
