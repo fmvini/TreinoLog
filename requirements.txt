@@ -1,0 +1,2 @@
+# Dependência de desenvolvimento para executar os testes automatizados.
+pytest

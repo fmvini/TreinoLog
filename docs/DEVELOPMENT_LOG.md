@@ -1,3 +1,26 @@
+## 2026-11-17 — Dados de demonstração e dependência de testes
+
+### Implementado
+- Preenchido `seed.py` com dados de exemplo para grupos, exercícios, treino e séries.
+- O script cria as tabelas e só carrega exemplos se o banco estiver vazio, preservando qualquer dado existente.
+- Adicionado `pytest` a `requirements.txt` como dependência de desenvolvimento e atualizado o README.
+
+### Arquivos principais alterados
+- `seed.py`
+- `requirements.txt`
+- `README.md`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Decisões técnicas
+- A carga de exemplo usa os services existentes e recusa alterar bancos que já contenham registros.
+
+### Estado atual
+- Os arquivos antes vazios agora têm função ou conteúdo útil. Os `__init__.py` vazios foram mantidos como marcadores dos pacotes Python.
+- Os testes não foram executados nesta alteração.
+
+### Próximos passos
+- Em um banco vazio, executar `python seed.py` para criar dados demonstrativos; instalar `requirements.txt` antes de executar os testes.
+
 ## 2026-11-17 — Documentação de uso do TreinoLog
 
 ### Implementado

@@ -15,7 +15,7 @@ Aplicação de terminal para registrar treinos de academia. O TreinoLog usa Pyth
 - Python 3.10 ou superior.
 - SQLite 3, acessado pelo módulo `sqlite3` que acompanha a biblioteca padrão do Python.
 
-A aplicação não depende de bibliotecas externas. O arquivo `requirements.txt` está vazio porque não há dependências externas para executar o programa.
+A aplicação não depende de bibliotecas externas para funcionar: o acesso ao SQLite usa o módulo `sqlite3` da biblioteca padrão do Python. O arquivo `requirements.txt` contém `pytest`, usado somente para executar os testes.
 
 ## Instalação e execução
 
@@ -50,6 +50,14 @@ python main.py
 
 O banco `treinolog.db` e as tabelas são criados automaticamente na primeira execução. O arquivo do banco fica na pasta de onde o comando foi iniciado.
 
+Para carregar dados de demonstração em um banco vazio, execute:
+
+```bash
+python seed.py
+```
+
+O script adiciona grupos musculares, exercícios, um treino e algumas séries. Se encontrar qualquer registro no banco, não altera os dados existentes.
+
 ## Como usar
 
 No menu principal, escolha uma área para gerenciar:
@@ -78,6 +86,7 @@ As relações usam chaves estrangeiras: cada exercício pertence a um grupo musc
 ```text
 TreinoLog/
 ├── main.py                  # Inicialização e composição da aplicação
+├── seed.py                  # Carga opcional de dados de demonstração
 ├── database.py              # Conexão SQLite e criação das tabelas
 ├── models/                  # Modelos de dados e validações
 ├── repositories/            # Operações SQL de persistência
@@ -85,14 +94,14 @@ TreinoLog/
 ├── menus/                   # Interface de terminal
 ├── utils/                   # Entrada e formatação
 ├── tests/                   # Testes automatizados
-└── requirements.txt         # Dependências externas (nenhuma para executar)
+└── requirements.txt         # Dependência de desenvolvimento: pytest
 ```
 
 ## Testes
 
-Os testes usam `pytest`, que é uma dependência de desenvolvimento. Instale-a e execute a suíte assim:
+Os testes usam `pytest`, que é uma dependência de desenvolvimento. Instale-a pelo arquivo de dependências e execute a suíte assim:
 
 ```bash
-python -m pip install pytest
+python -m pip install -r requirements.txt
 python -m pytest -q
 ```
