@@ -72,15 +72,32 @@ class GrupoMuscularRepository:
         self.db.conexao.commit()
 
     def deletar(self, id: int) -> None:
-        cursor = self.db.conexao.execute(
-            """
-            DELETE FROM grupos_musculares 
-            WHERE id = ?
-            """,
-            (id,)
-        )
-        if cursor.rowcount == 0:
-            raise RegistroNaoEncontradoError(
-                f"Grupo muscular com ID {id} não encontrado."
+        try:
+            self.db.conexao.execute(
+                """
+                DELETE FROM series
+                WHERE exercicio_id IN (
+                    SELECT id FROM exercicios WHERE grupo_id = ?
+                )
+                """,
+                (id,)
             )
-        self.db.conexao.commit()
+            self.db.conexao.execute(
+                "DELETE FROM exercicios WHERE grupo_id = ?",
+                (id,)
+            )
+            cursor = self.db.conexao.execute(
+                """
+                DELETE FROM grupos_musculares
+                WHERE id = ?
+                """,
+                (id,)
+            )
+            if cursor.rowcount == 0:
+                raise RegistroNaoEncontradoError(
+                    f"Grupo muscular com ID {id} não encontrado."
+                )
+            self.db.conexao.commit()
+        except Exception:
+            self.db.conexao.rollback()
+            raise

@@ -72,7 +72,9 @@ class MenuGrupos:
             id = ler_inteiro("Digite o ID do grupo que deseja excluir: ")
             grupo = self.grupo_service.buscar_por_id(id)
             print(f"\nGrupo selecionado: {grupo.nome}")
-            confirmacao = input("Tem certeza que deseja excluir? (s/n): ").strip().lower()
+            confirmacao = input(
+                "Tem certeza que deseja excluir este grupo e seus exercícios/séries? (s/n): "
+            ).strip().lower()
             if confirmacao != "s":
                 print("Exclusão cancelada.")
                 return

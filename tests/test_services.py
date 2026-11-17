@@ -97,7 +97,7 @@ def test_crud_completo_dos_quatro_services(sistema):
         treino_service.repository.buscar_por_id(treino.id)
 
 
-def test_excluir_exercicio_com_serie_exibe_erro_e_preserva_registros(
+def test_excluir_exercicio_com_serie_remove_exercicio_e_serie(
     sistema,
     monkeypatch,
     capsys
@@ -114,6 +114,26 @@ def test_excluir_exercicio_com_serie_exibe_erro_e_preserva_registros(
     menu = MenuExercicios(sistema["exercicio"], sistema["grupo"])
     menu.deletar()
 
-    assert "associado a uma ou mais séries" in capsys.readouterr().out
-    assert sistema["exercicio"].buscar_por_id(exercicio.id).id == exercicio.id
-    assert sistema["serie"].buscar_por_id(serie.id).id == serie.id
+    assert "Exercício excluído com sucesso!" in capsys.readouterr().out
+    with pytest.raises(RegistroNaoEncontradoError):
+        sistema["exercicio"].buscar_por_id(exercicio.id)
+    with pytest.raises(RegistroNaoEncontradoError):
+        sistema["serie"].buscar_por_id(serie.id)
+
+
+def test_excluir_grupo_remove_exercicios_e_series_vinculados(sistema):
+    grupo = sistema["grupo"].criar(GrupoMuscular("Peito"))
+    exercicio = sistema["exercicio"].criar(Exercicio("Supino reto", grupo.id))
+    treino = sistema["treino"].criar(
+        Treino("Treino A", date.today().isoformat(), 60)
+    )
+    serie = sistema["serie"].criar(Serie(treino.id, exercicio.id, 1, 10, 40))
+
+    sistema["grupo"].deletar(grupo.id)
+
+    with pytest.raises(RegistroNaoEncontradoError):
+        sistema["grupo"].buscar_por_id(grupo.id)
+    with pytest.raises(RegistroNaoEncontradoError):
+        sistema["exercicio"].buscar_por_id(exercicio.id)
+    with pytest.raises(RegistroNaoEncontradoError):
+        sistema["serie"].buscar_por_id(serie.id)

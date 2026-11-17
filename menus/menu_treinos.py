@@ -96,7 +96,7 @@ class MenuTreinos:
             print(f"\nTreino selecionado: {treino.nome}")
             print(f"Data: {treino.data_br}")
             confirmacao = input(
-                "\nTem certeza que deseja excluir este treino? (s/n): "
+                "\nTem certeza que deseja excluir este treino e suas séries? (s/n): "
             ).strip().lower()
             if confirmacao != "s":
                 print("Exclusão cancelada.")

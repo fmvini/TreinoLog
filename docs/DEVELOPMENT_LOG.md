@@ -1,25 +1,29 @@
-## 2026-11-17 — Tratamento de exclusão de exercícios vinculados
+## 2026-11-17 — Exclusão em cascata de registros dependentes
 
 ### Implementado
-- A exclusão de exercício referenciado por séries agora exibe uma mensagem clara em vez de encerrar o programa com `sqlite3.IntegrityError`.
-- A operação faz rollback da transação rejeitada e preserva o exercício e suas séries.
-- Adicionado teste para o fluxo de exclusão pelo menu.
+- Excluir um exercício remove suas séries vinculadas dentro da mesma transação.
+- Excluir um grupo muscular remove seus exercícios e as séries desses exercícios.
+- As confirmações de exclusão informam quando registros relacionados também serão removidos.
+- Adicionados testes para exclusão de exercício e grupo com registros dependentes.
 
 ### Arquivos principais alterados
 - `repositories/exercicio_repository.py`
+- `repositories/grupo_muscular_repository.py`
 - `menus/menu_exercicios.py`
+- `menus/menu_grupos.py`
+- `menus/menu_treinos.py`
 - `tests/test_services.py`
 - `docs/DEVELOPMENT_LOG.md`
 
 ### Decisões técnicas
-- A integridade referencial continua sendo aplicada pelo SQLite; o repositório converte a violação esperada em `RegraDeNegocioError` para o menu apresentar ao usuário.
+- As exclusões de pai e filhos são feitas na mesma transação do repositório, sem depender de alteração/migração do esquema SQLite existente.
 
 ### Estado atual
-- O erro de exclusão é tratado sem apagar dados vinculados.
-- Os 42 testes automatizados passaram, incluindo o novo caso pelo menu.
+- As exclusões em cascata removem filhos vinculados sem interromper o programa.
+- Os 43 testes automatizados passaram, incluindo exclusão de exercício e grupo com registros dependentes.
 
 ### Próximos passos
-- Continuar o uso normal; exercícios com séries vinculadas devem ser removidos somente depois das séries.
+- Continuar o uso normal; as confirmações informam quais registros relacionados também serão excluídos.
 
 ## 2026-11-17 — Dados de demonstração e dependência de testes
 

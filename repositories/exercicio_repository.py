@@ -1,8 +1,6 @@
-import sqlite3
-
 from database import Database
 from models.exercicio import Exercicio
-from exceptions import RegistroNaoEncontradoError, RegraDeNegocioError
+from exceptions import RegistroNaoEncontradoError
 
 
 class ExercicioRepository:
@@ -124,6 +122,10 @@ class ExercicioRepository:
 
     def deletar(self, id: int) -> None:
         try:
+            self.db.conexao.execute(
+                "DELETE FROM series WHERE exercicio_id = ?",
+                (id,)
+            )
             cursor = self.db.conexao.execute(
                 """
                 DELETE FROM exercicios
@@ -131,11 +133,11 @@ class ExercicioRepository:
                 """,
                 (id,)
             )
-        except sqlite3.IntegrityError as erro:
+            if cursor.rowcount == 0:
+                raise RegistroNaoEncontradoError(
+                    f"Exercicio com o ID {id} não encontrado."
+                )
+            self.db.conexao.commit()
+        except Exception:
             self.db.conexao.rollback()
-            raise RegraDeNegocioError(
-                "Não é possível excluir este exercício porque ele está associado a uma ou mais séries."
-            ) from erro
-        if cursor.rowcount == 0:
-            raise RegistroNaoEncontradoError(f"Exercicio com o ID {id} não encontrado.")
-        self.db.conexao.commit()
+            raise
